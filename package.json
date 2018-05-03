@@ -1,0 +1,24 @@
+{
+  "name": "playing-with-canvas",
+  "version": "1.0.0",
+  "description": "Playing with canvas and geometry",
+  "main": "index.js",
+  "scripts": {
+  },
+  "dependencies": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marcelotokarnia/playing-with-canvas.git"
+  },
+  "keywords": [
+    "canvas",
+    "javascript"
+  ],
+  "author": "Marcelo Tokarnia <marcelo.tokarnia@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marcelotokarnia/playing-with-canvas/issues"
+  },
+  "homepage": "https://github.com/marcelotokarnia/playing-with-canvas#readme"
+}
