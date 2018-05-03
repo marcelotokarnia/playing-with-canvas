@@ -1,0 +1,37 @@
+{
+  "globals": {
+    "window": true,
+    "document": true
+  },
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "plugins": [
+    "react",
+    "jsx-a11y",
+    "import"
+  ],
+  "rules": {
+    "no-return-assign": ["OFF"],
+    "no-plusplus": ["OFF"],
+    "no-mixed-operators": ["OFF"],
+    "semi": ["ERROR", "never"],
+    "indent": ["ERROR", 2],
+    "function-paren-newline": ["ERROR", "consistent"],
+    "import/no-extraneous-dependencies": ["ERROR", {"devDependencies": true, "optionalDependencies": false, "peerDependencies": false}],
+    "react/jsx-filename-extension": ["ERROR", { "extensions": [".js", ".jsx"] }],
+    "react/prefer-stateless-function": ["OFF"],
+    "react/no-array-index-key": ["OFF"],
+    "react/forbid-prop-types": ["OFF"],
+    "jsx-a11y/anchor-is-valid": ["OFF"],
+    "jsx-a11y/click-events-have-key-events": ["OFF"],
+    "jsx-a11y/no-static-element-interactions": ["OFF"],
+    "jsx-a11y/label-has-for": [ "ERROR", {
+      "components": [ "Label" ],
+      "required": {
+          "every": [ "id" ]
+      },
+      "allowChildren": false
+  }]
+
+  }
+}
