@@ -1,0 +1,2 @@
+export const UPDATE_CANVAS = 'UPDATE_CANVAS'
+export const UPDATE_MENU = 'UPDATE_MENU'

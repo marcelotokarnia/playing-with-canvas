@@ -1,17 +1,34 @@
 import React, { Component, createRef } from 'react'
 import { cond, equals, update, addIndex, forEach, reject, isNil } from 'ramda'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import PropTypes from 'prop-types'
+import updateCanvas from '../actions/Canvas'
 
 const RED = '#FF0000'
 const BLUE = '#0000FF'
 const YELLOW = '#FFFF00'
 
+const POINT_PROP = {
+  x: PropTypes.number.isRequired,
+  y: PropTypes.number.isRequired,
+}
+
 class Canvas extends Component {
-  constructor() {
-    super()
-    this.state = {
-      points: Array(3),
-      reference: 0,
-    }
+  static propTypes = {
+    center: PropTypes.shape(POINT_PROP),
+    area: PropTypes.number,
+    points: PropTypes.arrayOf(
+      PropTypes.shape(POINT_PROP),
+    ).isRequired,
+    P3: PropTypes.shape(POINT_PROP),
+    updateCanvas: PropTypes.func.isRequired,
+  }
+
+  static defaultProps = {
+    center: null,
+    area: null,
+    P3: null,
   }
 
   componentDidMount() {
@@ -25,7 +42,8 @@ class Canvas extends Component {
       [
         equals(3),
         () => {
-          const { center, area } = this.drawParallelogram()
+          this.drawParallelogram()
+          const { center, area } = this.props
           this.drawYellowCircle(center, area)
         },
       ],
@@ -48,36 +66,48 @@ class Canvas extends Component {
     this.draw(() => this.ctx.arc(x, y, R, 0, 2 * Math.PI))
   }
 
-  clearCanvas = () => this.ctx.clearRect(0, 0, this.canvas.current.width, this.canvas.current.height)
+  clearCanvas = () => this.ctx.clearRect(
+    0, 0, this.canvas.current.width, this.canvas.current.height,
+  )
 
   updateReferences = async (e) => {
-    const points = [...this.state.points]
-    const { reference } = this.state
-    await this.setState({
-      points: update(reference % 3, { x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY }, points),
+    const { reference } = this.props
+    const points = update(
+      reference % 3,
+      { x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY },
+      [...this.props.points],
+    )
+    const updatedState = {
+      points,
       reference: reference + 1,
-    })
+    }
+    if (equals(3)(reject(isNil, points).length)) {
+      updatedState.P3 = this.calculateLastPoint(points)
+      updatedState.area = this.calculateArea(points, updatedState.P3)
+      updatedState.center = this.calculateCenter(points)
+    }
+    this.props.updateCanvas(updatedState)
   }
 
   drawRedCircles = () => {
     this.changeColor(RED)
-    const circles = reject(isNil, this.state.points)
+    const circles = reject(isNil, this.props.points)
     forEach(({ x, y }) => {
       this.draw(() => this.ctx.arc(x, y, 11, 0, 2 * Math.PI))
     })(circles)
     return circles
   }
 
-  calculateLastPoint = () => {
-    const [{ x: x0, y: y0 }, { x: x1, y: y1 }, { x: x2, y: y2 }] = this.state.points
+  calculateLastPoint = (points) => {
+    const [{ x: x0, y: y0 }, { x: x1, y: y1 }, { x: x2, y: y2 }] = points
     return {
       x: x0 + (x2 - x1),
       y: y0 + (y2 - y1),
     }
   }
 
-  calculateCenter = () => {
-    const [{ x: x0, y: y0 },, { x: x2, y: y2 }] = this.state.points
+  calculateCenter = (points) => {
+    const [{ x: x0, y: y0 },, { x: x2, y: y2 }] = points
     return {
       x: x0 + (x2 - x0) / 2,
       y: y0 + (y2 - y0) / 2,
@@ -92,9 +122,8 @@ class Canvas extends Component {
     ((L2.y - L1.y) * P0.x) - ((L2.x - L1.x) * P0.y) + (L2.x * L1.y) - (L2.y * L1.x),
   ) / this.distanceBetweenPoints(L1, L2)
 
-  calculateArea = () => {
-    const [P0, P1, P2] = this.state.points
-    const P3 = this.calculateLastPoint()
+  calculateArea = (points, P3) => {
+    const [P0, P1, P2] = points
     const base = this.distanceBetweenPoints(P0, P1)
     const height = this.distanceBetweenPointAndLine(P0, P2, P3)
     return base * height
@@ -102,8 +131,8 @@ class Canvas extends Component {
 
   drawParallelogram = () => {
     this.changeColor(BLUE)
-    const P3 = this.calculateLastPoint()
-    const parallelogramsVerts = [...this.state.points, P3]
+    const { points, P3 } = this.props
+    const parallelogramsVerts = [...points, P3]
     addIndex(forEach)(({ x, y }, i) => {
       const { x: fromX, y: fromY } = parallelogramsVerts[(i + 1) % 4]
       this.draw(() => {
@@ -111,19 +140,29 @@ class Canvas extends Component {
         this.ctx.lineTo(x, y)
       })
     })(parallelogramsVerts)
-    return {
-      center: this.calculateCenter(),
-      area: this.calculateArea(),
-    }
   }
 
   render() {
     return (
-      <canvas width="800" height="400" ref={this.canvas} onMouseDown={this.updateReferences}>
-        Your browser does not support the HTML5 canvas tag.
-      </canvas>
+      <div className="canvas-container">
+        <canvas width="800" height="400" ref={this.canvas} onMouseDown={this.updateReferences}>
+          Your browser does not support the HTML5 canvas tag.
+        </canvas>
+      </div>
     )
   }
 }
 
-export default Canvas
+const mapStateToProps = state => ({
+  points: state.Canvas.points,
+  reference: state.Canvas.reference,
+  center: state.Canvas.center,
+  P3: state.Canvas.P3,
+  area: state.Canvas.area,
+})
+
+const mapDispatchToProps = dispatch => ({
+  updateCanvas: bindActionCreators(updateCanvas, dispatch),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Canvas)
