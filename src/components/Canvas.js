@@ -144,8 +144,14 @@ class Canvas extends Component {
 
   render() {
     return (
-      <div className="canvas-container">
-        <canvas width="800" height="400" ref={this.canvas} onMouseDown={this.updateReferences}>
+      <div>
+        <canvas
+          className="border round-border"
+          width="500"
+          height="250"
+          ref={this.canvas}
+          onMouseDown={this.updateReferences}
+        >
           Your browser does not support the HTML5 canvas tag.
         </canvas>
       </div>
