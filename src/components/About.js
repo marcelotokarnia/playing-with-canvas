@@ -19,10 +19,10 @@ class About extends Component {
               <a href="https://www.linkedin.com/in/marcelo-tokarnia-5a1ab2128/" target="_blank" rel="noopener noreferrer">
                 <img src={linkedin} alt="Linkedin" width="25" height="25" />
               </a>
-              <a href="https://www.github.com/marcelotokarnia" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.github.com/marcelotokarnia" title="marcelotokarnia" target="_blank" rel="noopener noreferrer">
                 <img src={github} alt="Github" width="25" height="25" />
               </a>
-              <a href="skype:marcelotokarnia?add">
+              <a href="skype:live:marcelotokarnia?userinfo" title="live:marcelotokarnia">
                 <img src={skype} alt="Skype" width="25" height="25" />
               </a>
             </div>
