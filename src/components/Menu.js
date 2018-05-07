@@ -27,7 +27,7 @@ class Menu extends Component {
           })}
           onClick={this.handleClick('details')}
         >
-          DETAILS OF CANVAS
+          SHAPES DETAILS
         </button>
         <button
           className={classnames('flex1 center small-horizontal-margin round-border', {
