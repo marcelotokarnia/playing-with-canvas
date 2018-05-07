@@ -19,7 +19,7 @@ class Menu extends Component {
   render() {
     const { activeTab } = this.props
     return (
-      <div className="flex-row">
+      <div className="flex-row small-vertical-margin">
         <div
           className={classnames('flex1 center small-horizontal-margin round-border', {
             'back-color-dark': equals('details', activeTab),

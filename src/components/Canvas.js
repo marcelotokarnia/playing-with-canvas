@@ -9,7 +9,7 @@ const RED = '#FF0000'
 const BLUE = '#0000FF'
 const YELLOW = '#FFFF00'
 
-const POINT_PROP = {
+export const POINT_PROP = {
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
 }

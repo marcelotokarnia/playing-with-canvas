@@ -1,6 +1,12 @@
 .center {
   text-align: center;
 }
+.align-right {
+  text-align: right;
+}
+.align-left {
+  text-align: left;
+}
 .width500 {
   width: 500px;
 }
@@ -14,6 +20,10 @@
 .back-color-light {
   background-color: #e0e0e0;
   color: #fff;
+}
+.small-vertical-margin {
+  margin-top: 18px;
+  margin-bottom: 18px;
 }
 .small-horizontal-margin {
   margin-right: 18px;
@@ -38,6 +48,11 @@
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
+}
+.flex2 {
+  -webkit-box-flex: 2;
+      -ms-flex: 2;
+          flex: 2;
 }
 .pointer:hover {
   cursor: pointer;
