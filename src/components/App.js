@@ -16,6 +16,7 @@ class App extends Component {
     return (
       <Fragment>
         <h1> Learning Geometry </h1>
+        <h5> Read the "About the app" section below, or just click the box</h5>
         <Canvas />
         <Menu />
         { equals('details', activeTab) && <Details /> }
