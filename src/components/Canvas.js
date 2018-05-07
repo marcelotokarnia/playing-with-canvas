@@ -158,15 +158,20 @@ class Canvas extends Component {
       <div>
         <canvas
           className="border round-border"
-          width="500"
-          height="250"
+          width="650"
+          height="325"
           ref={this.canvas}
           onMouseDown={this.updateReferences}
         >
           Your browser does not support the HTML5 canvas tag.
         </canvas>
         <div className="align-right">
-          <button className="round-border back-color-light pointer" onClick={this.handleResetClick}>RESET BOARD</button>
+          <button
+            className="round-border back-color-light pointer"
+            onClick={this.handleResetClick}
+          >
+            RESET CANVAS
+          </button>
         </div>
       </div>
     )

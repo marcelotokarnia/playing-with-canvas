@@ -21,7 +21,7 @@ class Menu extends Component {
     return (
       <div className="flex-row small-vertical-margin">
         <button
-          className={classnames('flex1 center small-horizontal-margin round-border', {
+          className={classnames('flex1 align-center small-horizontal-margin round-border', {
             'back-color-dark': equals('details', activeTab),
             'pointer back-color-light': !equals('details', activeTab),
           })}
@@ -30,7 +30,7 @@ class Menu extends Component {
           SHAPES DETAILS
         </button>
         <button
-          className={classnames('flex1 center small-horizontal-margin round-border', {
+          className={classnames('flex1 align-center small-horizontal-margin round-border', {
             'back-color-dark': equals('about', activeTab),
             'pointer back-color-light': !equals('about', activeTab),
           })}
