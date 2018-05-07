@@ -20,7 +20,7 @@ class Menu extends Component {
     const { activeTab } = this.props
     return (
       <div className="flex-row small-vertical-margin">
-        <div
+        <button
           className={classnames('flex1 center small-horizontal-margin round-border', {
             'back-color-dark': equals('details', activeTab),
             'pointer back-color-light': !equals('details', activeTab),
@@ -28,8 +28,8 @@ class Menu extends Component {
           onClick={this.handleClick('details')}
         >
           DETAILS OF CANVAS
-        </div>
-        <div
+        </button>
+        <button
           className={classnames('flex1 center small-horizontal-margin round-border', {
             'back-color-dark': equals('about', activeTab),
             'pointer back-color-light': !equals('about', activeTab),
@@ -37,7 +37,7 @@ class Menu extends Component {
           onClick={this.handleClick('about')}
         >
           ABOUT THE APP
-        </div>
+        </button>
       </div>
     )
   }

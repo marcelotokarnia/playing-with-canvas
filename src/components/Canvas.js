@@ -21,6 +21,7 @@ class Canvas extends Component {
     points: PropTypes.arrayOf(
       PropTypes.shape(POINT_PROP),
     ).isRequired,
+    reference: PropTypes.number.isRequired,
     P3: PropTypes.shape(POINT_PROP),
     updateCanvas: PropTypes.func.isRequired,
   }
@@ -70,7 +71,17 @@ class Canvas extends Component {
     0, 0, this.canvas.current.width, this.canvas.current.height,
   )
 
-  updateReferences = async (e) => {
+  handleResetClick = () => {
+    this.props.updateCanvas({
+      points: Array(3),
+      reference: 0,
+      P3: null,
+      area: null,
+      center: null,
+    })
+  }
+
+  updateReferences = (e) => {
     const { reference } = this.props
     const points = update(
       reference % 3,
@@ -154,6 +165,9 @@ class Canvas extends Component {
         >
           Your browser does not support the HTML5 canvas tag.
         </canvas>
+        <div className="align-right">
+          <button className="round-border back-color-light pointer" onClick={this.handleResetClick}>RESET BOARD</button>
+        </div>
       </div>
     )
   }
