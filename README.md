@@ -4,9 +4,9 @@
 
 TL;DR:
 
-* `npm i`
+- `npm i`
 
-* `npm run watch`
+- `npm run watch`
 
 Longer version:
 
@@ -46,4 +46,4 @@ as well as the centre of mass and area (both the same for both shapes).
 
 Author: [Marcelo Tokarnia](https://www.github.com/marcelotokarnia)
 
-Deployed at: [canvas-tokarnia@now](https://canvas-tokarnia.now.sh/)
+Deployed at: [canvas-tokarnia@now](https://canvas.tokks.tech/)
